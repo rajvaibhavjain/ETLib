@@ -10,7 +10,9 @@
         }
     ],
     "autoload": {
-        "psr-4": {"HTML\\": "src/"}
+        "psr-4": {
+            "RandomQuotes\\": "src/"
+        }
     },
     "require": {
         "php": ">=7.2",

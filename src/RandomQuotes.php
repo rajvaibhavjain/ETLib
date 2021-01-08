@@ -24,4 +24,7 @@
     public function testfu(){
       return 1;
     }
+    public function testfu2(){
+      return 1;
+    }
   }

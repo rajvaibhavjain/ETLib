@@ -21,4 +21,7 @@
       return $this->getRandomQuotes();
     }
 
+    public function testfu(){
+      return 1;
+    }
   }

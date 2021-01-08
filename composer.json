@@ -10,7 +10,7 @@
         }
     ],
     "autoload": {
-        "psr-4": {"rajvaibhavjain\\ETLib\\": "src/"}
+        "psr-4": {"ET\\ETLib\\": "src/"}
     },
     "require": {
         "php": ">=7.2",

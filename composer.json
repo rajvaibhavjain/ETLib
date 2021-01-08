@@ -9,6 +9,9 @@
             "email": "rajvaibhavjain@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {"rajvaibhavjain\\ETLib\\": "src/"}
+    },
     "require": {
         "php": ">=7.2",
         "ext-curl": "*",

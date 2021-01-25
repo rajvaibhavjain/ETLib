@@ -1,18 +1,21 @@
 {
 	"name" : "rajvaibhavjain/etlib",
-	"description" : "a small library to handle projects in better way",
-	"keywords" : [
-		"CLSIAS"
-	],
-	"type" : "library",
-	"license" : "Apache-2.0",
-	"homepage" : "http://etechmy.com",
-	"authors" : [{
-			"name" : "ET",
-			"homepage" : "http://etechmy.com"
-		}
-	],
+    "description" : "a small library to handle projects in better way",
+    "type" : "library",
+    "license" : "MIT",
+    "authors" : [
+        {
+            "name" : "ET",
+            "email":"etechmy.com@gmail.com",
+            "homepage" : "http://etechmy.com"
+        }
+    ],
+
+	"autoload": {
+        "psr-4":{
+            "RandomQuotes\\":"src/"
+        }
+    },
 	"require" : {
-		"phpmailer/phpmailer":"^6.1.0"
 	}	
 }

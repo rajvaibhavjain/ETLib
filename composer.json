@@ -1,27 +1,18 @@
 {
-    "name": "rajvaibhavjain/etlib",
-    "description": "a small library to handle projects in better way",
-    "type": "library",    
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Raj Vaibhav Jain",
-            "email": "rajvaibhavjain@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-0": {
-            "RandomQuotes\\": "src/"
-        }
-    },
-    "require": {
-        "php": ">=7.2",
-        "ext-curl": "*",
-        "ext-json" : "*",
-        "phpmailer/phpmailer" : "~6.1",
-        "ext-filter": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~8.0"     
-    }
+	"name" : "rajvaibhavjain/etlib",
+	"description" : "a small library to handle projects in better way",
+	"keywords" : [
+		"CLSIAS"
+	],
+	"type" : "library",
+	"license" : "Apache-2.0",
+	"homepage" : "http://etechmy.com",
+	"authors" : [{
+			"name" : "ET",
+			"homepage" : "http://etechmy.com"
+		}
+	],
+	"require" : {
+		"phpmailer/phpmailer":"^6.1.0"
+	}	
 }

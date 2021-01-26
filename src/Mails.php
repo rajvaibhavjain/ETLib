@@ -1,6 +1,6 @@
 <?php
 
-namespace TAS\Core;
+namespace ETLAB;
 
 use PHPMailer\PHPMailer\PHPMailer;
 

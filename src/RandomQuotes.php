@@ -1,6 +1,6 @@
 <?php
 
-  namespace RandomQuotes;
+  namespace ETLAB;
 
   class RandomQuotes {
 

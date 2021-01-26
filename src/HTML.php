@@ -1,6 +1,12 @@
 <?php
 
 namespace ETLAB;
+
+/**
+ * Class to give HTML which help in consistent HTML for project.
+ *
+ * @author ETLAB Team
+ */
 class HTML
 {
     /**

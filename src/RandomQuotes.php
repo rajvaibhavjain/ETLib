@@ -4,7 +4,7 @@
 
   class RandomQuotes {
 
-    public function getRandomQuotes() {
+    public static function getRandomQuotes() {
 
       // Get the list of quotes.
       $quotes = file_get_contents( __DIR__ . '/../inc/quotes.json' );

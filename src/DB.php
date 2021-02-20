@@ -49,6 +49,22 @@
             $update=mysqli_query($GLOBALS['AppConfig']['mysqli_conn'],$query);
             return $update;
         }
+
+        public static function Insert($tablename,$values){
+            $key = [];
+            foreach (array_keys($values) as $k) {
+                $key[]=$k;
+            }
+        
+            $val = [];
+            foreach (array_keys($values) as $k) {
+                $val[]=$values[$k];
+            }
+        
+            $query = "Insert into `$tablename` (`".implode("`,`", $key)."`) VALUES ('".implode("','", $values)."')";
+            $insert=mysqli_query($GLOBALS['AppConfig']['mysqli_conn'],$query);
+            return $GLOBALS['AppConfig']['mysqli_conn']->insert_id;
+        }
     }
 
 ?>

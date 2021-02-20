@@ -7,14 +7,15 @@
         public function __construct()
         {
             include('db.php');
+            $this->$conn=$GLOBALS['AppConfig']['mysqli_conn'];
         }
         /* Rows Count */
-        public static function Execute($conn,$query){
+        public static function Execute($query){
 
         }
 
-        public static function ExecuteScalar($conn,$query){
-            $count=mysqli_query($conn, $query);
+        public static function ExecuteScalar($query){
+            $count=mysqli_query($GLOBALS['AppConfig']['mysqli_conn'], $query);
             if(mysqli_num_rows($count)>0){
                 $data=mysqli_fetch_array($count); 
                 return isset($data[0])?$data[0]:false;
@@ -23,8 +24,8 @@
             }
         }
 
-        public static function ExecuteScalarRow($conn,$query){
-            $mysqlquery=mysqli_query($conn, $query);
+        public static function ExecuteScalarRow($query){
+            $mysqlquery=mysqli_query($GLOBALS['AppConfig']['mysqli_conn'], $query);
             if(mysqli_num_rows($mysqlquery)>0){
                 $data=mysqli_fetch_array($mysqlquery); 
                 return $data;
@@ -33,7 +34,7 @@
             }
         }
 
-        public static function Update($conn,$tablename,$values,$condition){
+        public static function Update($tablename,$values,$condition){
 
             $columnlist = [];
             foreach (array_keys($values) as $k) {
@@ -45,7 +46,7 @@
                 $conditionlist[]="".$k."='".$condition[$k]."'";
             }
             $query = "Update `$tablename` set ".implode(",", $columnlist)." where ".implode(' and ', $conditionlist)."";
-            $update=mysqli_query($conn,$query);
+            $update=mysqli_query($GLOBALS['AppConfig']['mysqli_conn'],$query);
             return $update;
         }
     }

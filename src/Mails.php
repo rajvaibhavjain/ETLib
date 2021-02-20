@@ -52,4 +52,9 @@ class Mails
 			return true;
 		}
 	}
+
+	public static function DoCMSEmail(){
+		$x=DB::ExecuteScalarRow("select body from email");
+		return $x;
+	}
 }

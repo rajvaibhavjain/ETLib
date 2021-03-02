@@ -53,8 +53,14 @@ class Mails
 		}
 	}
 
-	public static function DoCMSEmail(){
-		$x=DB::ExecuteScalarRow("select body from email");
+	public static function DoCMSEmail($emailid,$params,$userName,$userEmail){
+		$x=DB::ExecuteScalarRow("select subject,body from email where emailid='$emailid'");
+		if(is_array($params)){
+			foreach($params as $k=>$v){
+				$x['body']=str_replace("{".$k."}",$v,$x['body']);
+			}
+		}
+		Mails::DoEmail($userName,$userEmail,$x['subject'],$x['body']);
 		return $x;
 	}
 }

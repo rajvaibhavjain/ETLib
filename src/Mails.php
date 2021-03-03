@@ -53,26 +53,21 @@ class Mails
 		}
 	}
 
-	public static function DoPhpEmail($to="rajvaibhavjain@gmail.com",$from="info@etechmy.com",$fromName="ETECHMY",$subject="Tech Rockes.",$message="<h3>Tech Rockes</h3>"){
-		$from = 'rvj1@atthah.com';
-		$fromName = $_REQUEST['name'];
-		$subject = $_REQUEST['subject'];
-		$content=$_REQUEST['message'];
-		$htmlContent = '<h3>Dear Sir/ Ma’am,</h3>
-			<p>'.$content.'</p>			
-			<p>Hope this gives an insight into the State’s investor friendly approach.</P>
-			<p>We look forward to a long and fruitful association.</P>
-			<p>Thanking you</P>';
+	public static function DoPhpEmail($to="rajvaibhavjain@gmail.com",$from="info@etechmy.com",$fromName="ETECHMY",$subject="Tech Rockes.",$mailBody="<h3>Tech Rockes</h3>"){
 		$headers = "From: $fromName"." <".$from.">";
 		$semi_rand = md5(time()); 
 		$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
 		$headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\"";  
 		$message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
-		"Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n"; 
+		"Content-Transfer-Encoding: 7bit\n\n" . $mailBody . "\n\n"; 
 		$message .= "--{$mime_boundary}--";
 		$returnpath = "-f" . $from;
 		$mail = @mail($to, $subject, $message, $headers, $returnpath); 
-		echo $mail?"<h1>Mail sent.</h1>":"<h1>Mail sending failed.</h1>";
+		if($mail){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	public static function DoCMSEmail($emailid,$params,$userName,$userEmail){
@@ -83,6 +78,17 @@ class Mails
 			}
 		}
 		Mails::DoEmail($userName,$userEmail,$x['subject'],$x['body']);
+		return $x;
+	}
+
+	public static function DoCMSPhpEmail($emailid,$params,$emailParams){
+		$x=DB::ExecuteScalarRow("select subject,body from email where emailid='$emailid'");
+		if(is_array($params)){
+			foreach($params as $k=>$v){
+				$x['body']=str_replace("{".$k."}",$v,$x['body']);
+			}
+		}
+		Mails::DoPhpEmail($emailParams['to'],$emailParams['from'],$emailParams['fromname'],$x['subject'],$x['body']);
 		return $x;
 	}
 

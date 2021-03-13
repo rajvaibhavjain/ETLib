@@ -2,19 +2,19 @@
     namespace ETLAB;
 
     class Firebase {
-
+        public function __construct()
+        {
+            include('db.php');
+        }
 
         public static function PushNotificationSingle($token="",$title="No Title",$body="No Body",$imageurl="https://etechmy.com/images/logo.png"){
                 if($token==""){
-                    //Etechmy Raj Note 11 token.
-                    $token="es4DCJVaRRexyFn3XjRlMC:APA91bE-oh-W8vICIb3kAoPJWAIPG7CAGSwaZY9O8jX02KgYlu3XJENb6kKSNFmMJbfZKfKU9yR6k00EPEd5g76S25NxBqvt3nPEFNRdyn0IurzWdHzDDVzvfdnO7u1kHoQNgm6mFUbY";
+                    $token=$GLOBALS['AppConfig']['FireBaseToken'];
                 }
                 
 				$path_to_fcm="https://fcm.googleapis.com/fcm/send";
-				$server_key="AAAAywl6XlU:APA91bEQ7J2c5PrBH5kqVDQRzASTAqU_YR8M3KN2b30nr3LntKlj7WZOi5Fpx7FTs-rUDTXCgDx6ZFUyD4M3teWVi6qrkVR9vFfdUdwWG1FInGysTHE76eQOx7gnmGqUgdKOm3kmBhUd";
-				
 				$headers=array(
-				'Authorization:key='.$server_key,
+				'Authorization:key='.$GLOBALS['AppConfig']['FireBaseServerKey'],
 				'Content-Type:application/json'
 				);
 				
@@ -33,21 +33,18 @@
 				print_r($result);
         }
 
-        public static function PushNotificationAll($token="",$title="No Title",$body="No Body",$imageurl="https://etechmy.com/images/logo.png"){
-            if($token==""){
-                //Etechmy Raj Note 11 token.
-                $token="es4DCJVaRRexyFn3XjRlMC:APA91bE-oh-W8vICIb3kAoPJWAIPG7CAGSwaZY9O8jX02KgYlu3XJENb6kKSNFmMJbfZKfKU9yR6k00EPEd5g76S25NxBqvt3nPEFNRdyn0IurzWdHzDDVzvfdnO7u1kHoQNgm6mFUbY";
-            }
-            
+        public static function PushNotificationMultiDevice($tokenArray=array(),$title="No Title",$body="No Body",$imageurl="https://etechmy.com/images/logo.png"){
+            if(empty($tokenArray)){
+                $tokenArray=array(  $GLOBALS['AppConfig']['FireBaseToken'],
+                                    $GLOBALS['AppConfig']['FireBaseToken']);
+            }        
             $path_to_fcm="https://fcm.googleapis.com/fcm/send";
-            $server_key="AAAAywl6XlU:APA91bEQ7J2c5PrBH5kqVDQRzASTAqU_YR8M3KN2b30nr3LntKlj7WZOi5Fpx7FTs-rUDTXCgDx6ZFUyD4M3teWVi6qrkVR9vFfdUdwWG1FInGysTHE76eQOx7gnmGqUgdKOm3kmBhUd";
-            
             $headers=array(
-            'Authorization:key='.$server_key,
+            'Authorization:key='.$GLOBALS['AppConfig']['FireBaseServerKey'],
             'Content-Type:application/json'
             );
             
-            $fields=array('to'=>$token,'notification'=>array('title'=>$title,'body'=>$body,"image"=>$imageurl));
+            $fields=array('registration_ids'=>$tokenArray,'notification'=>array('title'=>$title,'body'=>$body,"image"=>$imageurl,"sound"=> "default"));
             $payload=json_encode($fields);
             $curl_session=curl_init();
             curl_setopt($curl_session,CURLOPT_URL,$path_to_fcm);
@@ -60,7 +57,7 @@
             $result=curl_exec($curl_session);
             curl_close($curl_session);
             print_r($result);
-    }
+        }
 
     }
 

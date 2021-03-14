@@ -7,9 +7,12 @@
             include('db.php');
         }
 
-        public static function PushNotificationSingle($token="",$title="No Title",$body="No Body",$imageurl="https://etechmy.com/images/logo.png"){
+        public static function PushNotificationSingle($token="",$title="No Title",$body="No Body",$imageurl=""){
                 if($token==""){
                     $token=$GLOBALS['AppConfig']['FireBaseToken'];
+                }
+                if($imageurl==""){
+                    $imageurl=$GLOBALS['AppConfig']['FireBaseImage'];
                 }
                 
 				$path_to_fcm="https://fcm.googleapis.com/fcm/send";
@@ -33,11 +36,16 @@
 				print_r($result);
         }
 
-        public static function PushNotificationMultiDevice($tokenArray=array(),$title="No Title",$body="No Body",$imageurl="https://etechmy.com/images/logo.png"){
+        public static function PushNotificationMultiDevice($tokenArray=array(),$title="No Title",$body="No Body",$imageurl=""){
             if(empty($tokenArray)){
                 $tokenArray=array(  $GLOBALS['AppConfig']['FireBaseToken'],
                                     $GLOBALS['AppConfig']['FireBaseToken']);
-            }        
+            }  
+            
+            if($imageurl==""){
+                $imageurl=$GLOBALS['AppConfig']['FireBaseImage'];
+            }
+
             $path_to_fcm="https://fcm.googleapis.com/fcm/send";
             $headers=array(
             'Authorization:key='.$GLOBALS['AppConfig']['FireBaseServerKey'],

@@ -33,7 +33,8 @@
 				curl_setopt($curl_session,CURLOPT_POSTFIELDS,$payload);
 				$result=curl_exec($curl_session);
 				curl_close($curl_session);
-				print_r($result);
+				// print_r($result);
+                return true;
         }
 
         public static function PushNotificationMultiDevice($tokenArray=array(),$title="No Title",$body="No Body",$imageurl=""){
@@ -64,7 +65,8 @@
             curl_setopt($curl_session,CURLOPT_POSTFIELDS,$payload);
             $result=curl_exec($curl_session);
             curl_close($curl_session);
-            print_r($result);
+            // print_r($result);
+            return true;
         }
 
     }

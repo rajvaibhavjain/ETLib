@@ -9,9 +9,18 @@
             include('db.php');
             $this->$conn=$GLOBALS['AppConfig']['mysqli_conn'];
         }
-        /* Rows Count */
+        
         public static function Execute($query){
-
+            $data=array();
+            $count=mysqli_query($GLOBALS['AppConfig']['mysqli_conn'], $query);
+            if(mysqli_num_rows($count)>0){
+                while($row=mysqli_fetch_assoc($count)){
+                    $data[]=$row; 
+                }
+                return $data;
+            }else{
+                return false;
+            }
         }
 
         public static function ExecuteScalar($query){
@@ -58,11 +67,32 @@
         
             $val = [];
             foreach (array_keys($values) as $k) {
-                $val[]=$values[$k];
+                $val[]=mysqli_real_escape_string($GLOBALS['AppConfig']['mysqli_conn'], $values[$k]);
             }
         
-            $query = "Insert into `$tablename` (`".implode("`,`", $key)."`) VALUES ('".implode("','", $values)."')";
+            $query = "Insert into `$tablename` (`".implode("`,`", $key)."`) VALUES ('".implode("','", $val)."')";
             $insert=mysqli_query($GLOBALS['AppConfig']['mysqli_conn'],$query);
+            return $GLOBALS['AppConfig']['mysqli_conn']->insert_id;
+        }
+
+        public static function BulkInsert($tablename,$values){
+            // print_r($values);
+            $key = [];
+            $bulkval = [];
+            foreach($values as $i=>$row){
+                if($i==0){
+                    foreach (array_keys($row) as $k) {
+                        $key[]=$k;
+                    }
+                }
+            }
+            foreach (array_keys($values) as $k) {
+                $bulkval[]="('".implode("','", $values[$k])."')";
+            }
+
+            $query = "Insert into `$tablename` (`".implode("`,`", $key)."`) VALUES ".implode(",", $bulkval)."";
+            // echo $query;
+            mysqli_query($GLOBALS['AppConfig']['mysqli_conn'],$query);
             return $GLOBALS['AppConfig']['mysqli_conn']->insert_id;
         }
     }

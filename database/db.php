@@ -37,7 +37,7 @@ $GLOBALS['AppConfig']['SenderEmail']="rajvaibhavjain@gmail.com";
 $GLOBALS['AppConfig']['SMTPHost']="smtp.gmail.com";
 $GLOBALS['AppConfig']['SMTPPort']="587";
 $GLOBALS['AppConfig']['SMTPUsername']="rajvaibhavjain@gmail.com";
-$GLOBALS['AppConfig']['SMTPPassword']="Rajjainz1!";
+$GLOBALS['AppConfig']['SMTPPassword']="password";
 
 
 // Create connection

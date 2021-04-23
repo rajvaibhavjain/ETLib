@@ -95,6 +95,19 @@
             mysqli_query($GLOBALS['AppConfig']['mysqli_conn'],$query);
             return $GLOBALS['AppConfig']['mysqli_conn']->insert_id;
         }
+
+        public static function KeyValuePair($query){
+            $data=array();
+            $count=mysqli_query($GLOBALS['AppConfig']['mysqli_conn'], $query);
+            if(mysqli_num_rows($count)>0){
+                while($row=mysqli_fetch_array($count)){
+                    $data[$row[0]]=$row[1]; 
+                }
+                return $data;
+            }else{
+                return false;
+            }
+        }
     }
 
 ?>

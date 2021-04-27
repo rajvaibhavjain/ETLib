@@ -1,7 +1,4 @@
-
-
-
-var json='{"response":false,"message":"Title is required."}';
+var json = '{"response":false,"message":"Title is required."}';
 console.log(json);
 var obj = JSON.parse(json);
 console.log(obj.response);
@@ -35,147 +32,151 @@ console.log(JSON.stringify(json));
 
 //'title'=['User id','User Name','Email','Mobile','Type','Time','Options'],'rows'=[['USR24','student student','student@student.com','7878787878','user','2020-08-27 01:05:34','<a href="useredit.php?userid=24"><button class="btn btn-success">EDIT</button></a>'],['User id','User Name','Email','Mobile','Type','Time','Options'],[],[]]
 /* Params */
-var GridOption=[];  /* Option For Show dit Update delete Button */
+var GridOption = []; /* Option For Show dit Update delete Button */
 // var GridParams=[];
-var GridHtml='';
-function Grid(GridParams){
-     var titleHTML='';
-     var rowsHTML='';
-     var paginationHTML='';
-     var paginationSelectHTML='';
+var GridHtml = '';
 
-     if(GridParams['response']){
-         
-          /* Pagination */
-          if(GridParams['pagination']['ispagination']){
-               var totalPages = Math.ceil(GridParams['pagination']['totalrows']/GridParams['pagination']['showdatalimit']); 
-               var currentPage = GridParams['pagination']['currentpage']; 
-               if(totalPages>1){
-     
-                    /* First Button */
-                    if(currentPage!=1){
-                         paginationHTML+=`<button class='btn m-1 pagenumber' data-pagenumber="1">First</button>`;
-                    }
-                    /*Prev Button */
-                    if(currentPage>=2){
-                         paginationHTML+=`<button class='btn m-1 pagenumber' data-pagenumber="`+(currentPage-1)+`" >Prev</button>`;
-                    }
-     
-                    /*Middle Page Buttons */
-                    if(currentPage>2){
-                         paginationPage=currentPage-2
-                    }else if(currentPage==2){
-                         paginationPage=currentPage-1
-                    }else{
-                         paginationPage=currentPage;
-                    }
-                    var count=0;
-                    for(i=paginationPage;i<=totalPages;i++){
-                         if(count<5){
-                              paginationHTML+=`<button class='btn m-1 pagenumber ${currentPage==i?'btn-success':''}' data-pagenumber="`+i+`" onclick="PaginationClick(`+i+`)">`+i+`</button>`;
-                         }
-                         count++;
-                    }
-     
-                    /*Next/Last  Button */
-                    if(currentPage!=totalPages){
-                         paginationHTML+=`<button class='btn m-1 pagenumber' data-pagenumber="`+(currentPage+1)+`" >Next</button>
-                                             <button class='btn m-1 pagenumber'data-pagenumber="`+totalPages+`" >Last</button>`;
-                    }
-               }
-          }
+function Grid(GridParams) {
+    var titleHTML = '';
+    var rowsHTML = '';
+    var paginationHTML = '';
+    var paginationSelectHTML = '';
 
-          /* Select Option */
-          if(GridParams['pagination']['isselect']){
-               if(GridParams['pagination']['selectoption']){
-                    paginationSelectHTML+=`<select id="gridselect" name="cacheMode" class="select2 w-100 selectnumber">`;
-                    GridParams['pagination']['selectoption'].forEach(function(value,index){
-                         paginationSelectHTML+=` <option value="`+value+`" ${GridParams['pagination']['showdatalimit']==value?'selected':''}   >`+value+`</option>>`;
-                    })
-                    paginationSelectHTML+=`</select>`;
-               }
-               
-          }
-          
+    if (GridParams['response']) {
 
-          /* Title */
-          if(GridParams['title']){
-               titleHTML+=`<tr>`;
-               $.each(GridParams['title'],function(key,value){
-                    titleHTML+=`<th>`+value+`</th>` 
-               })
-               /* Option Columns  */
-               if(GridParams['option']['isoption']){
-                    titleHTML+=`<th>`+GridParams['option']['optiontitle']+`</th>` 
-               }
-               titleHTML+=`</tr>`;
-          }
+        /* Pagination */
+        if (GridParams['pagination']['ispagination']) {
+            var totalPages = Math.ceil(GridParams['pagination']['totalrows'] / GridParams['pagination']['showdatalimit']);
+            var currentPage = GridParams['pagination']['currentpage'];
+            if (totalPages > 1) {
 
-          /* Rows */
-          if(GridParams['rows']){
-               /* Multipal Data */
-               GridParams['rows'].forEach(rowelement => {
-                    rowsHTML+=`<tr>`
+                /* First Button */
+                if (currentPage != 1) {
+                    paginationHTML += `<button class='btn m-1 pagenumber' data-pagenumber="1">First</button>`;
+                }
+                /*Prev Button */
+                if (currentPage >= 2) {
+                    paginationHTML += `<button class='btn m-1 pagenumber' data-pagenumber="` + (currentPage - 1) + `" >Prev</button>`;
+                }
+
+                /*Middle Page Buttons */
+                if (currentPage > 2) {
+                    paginationPage = currentPage - 2
+                } else if (currentPage == 2) {
+                    paginationPage = currentPage - 1
+                } else {
+                    paginationPage = currentPage;
+                }
+                var count = 0;
+                for (i = paginationPage; i <= totalPages; i++) {
+                    if (count < 5) {
+                        paginationHTML += `<button class='btn m-1 pagenumber ${currentPage == i ? 'btn-success' : ''}' data-pagenumber="` + i + `" onclick="PaginationClick(` + i + `)">` + i + `</button>`;
+                    }
+                    count++;
+                }
+
+                /*Next/Last  Button */
+                if (currentPage != totalPages) {
+                    paginationHTML += `<button class='btn m-1 pagenumber' data-pagenumber="` + (currentPage + 1) + `" >Next</button>
+                                             <button class='btn m-1 pagenumber'data-pagenumber="` + totalPages + `" >Last</button>`;
+                }
+            }
+        }
+
+        /* Select Option */
+        if (GridParams['pagination']['isselect']) {
+            if (GridParams['pagination']['selectoption']) {
+                paginationSelectHTML += `<select id="gridselect" name="cacheMode" class="select2 w-100 selectnumber">`;
+                GridParams['pagination']['selectoption'].forEach(function(value, index) {
+                    paginationSelectHTML += ` <option value="` + value + `" ${GridParams['pagination']['showdatalimit'] == value ? 'selected' : ''}   >` + value + `</option>>`;
+                })
+                paginationSelectHTML += `</select>`;
+            }
+
+        }
+
+
+        /* Title */
+        if (GridParams['title']) {
+            titleHTML += `<tr>`;
+            $.each(GridParams['title'], function(key, value) {
+                    titleHTML += `<th>` + value + `</th>`
+                })
+                /* Option Columns  */
+            if (GridParams['option']['isoption']) {
+                titleHTML += `<th>` + GridParams['option']['optiontitle'] + `</th>`
+            }
+            titleHTML += `</tr>`;
+        }
+
+        /* Rows */
+        if (GridParams['rows']) {
+            /* Multipal Data */
+            GridParams['rows'].forEach(rowelement => {
+                rowsHTML += `<tr>`
                     /** Columns **/
-                    $.each(rowelement, function(key, value) {                    
-                         if (key in GridParams['title']){
-                              rowsHTML+=`<td>`+value+`</td>`
-                         }
-                    });
-                    /* Option Columns  */
-                    if(GridParams['option']['isoption']){
-                         rowsHTML+=`<td>`
-                         GridParams['option']['optionfields'].forEach(function(element,index){
-                              var optionkey=GridParams['option']['optionKey'][index];
-                              var optionurl=GridParams['option']['optionLink'][index];
-                              switch (element) {
-                                   case "href":
-                                        rowsHTML+=`<a href="`+optionurl+rowelement[optionkey]+`"><button class="`+GridParams['option']['optionAdditionalClass'][index]+` btn btn-success m-1" data-key="`+rowelement[optionkey]+`" data-toggle="tooltip" data-placement="top" title="`+GridParams['option']['optionToolTip'][index]+`">${GridParams['option']['isFaFa']?'<i class="'+GridParams['option']['optionFaFa'][index]+'"></i>':GridParams['option']['optionToolTip'][index]}</button></a>` 
-                                        break;
-                                   case "newtab":
-                                        // rowsHTML+=`<a href="`+optionurl+rowelement[optionkey]+`" target="_blank"><button class="btn btn-success">`+GridParams['option']['optionToolTip'][index]+`</button></a>` 
-                                        rowsHTML+=`<a href="`+optionurl+rowelement[optionkey]+`"  target="_blank" ><button class="`+GridParams['option']['optionAdditionalClass'][index]+` btn btn-success m-1" data-key="`+rowelement[optionkey]+`" data-toggle="tooltip" data-placement="top" title="`+GridParams['option']['optionToolTip'][index]+`">${GridParams['option']['isFaFa']?'<i class="'+GridParams['option']['optionFaFa'][index]+'"></i>':GridParams['option']['optionToolTip'][index]}</button></a>`
-                                        break;
-                                   case "#":
-                                        rowsHTML+=`<a href="#"><button class="`+GridParams['option']['optionAdditionalClass'][index]+` btn btn-success m-1" data-key="`+rowelement[optionkey]+`" data-toggle="tooltip" data-placement="top" title="`+GridParams['option']['optionToolTip'][index]+`">${GridParams['option']['isFaFa']?'<i class="'+GridParams['option']['optionFaFa'][index]+'"></i>':GridParams['option']['optionToolTip'][index]}</button></a>`
-                                        break;
-                                   // case "href":
-                                   //      rowsHTML+=`<a href="useredit.php?userid=24"><button class="btn btn-success">EDIT</button></a>` 
-                                   //      break;
-                                   default:
-                                        break;
-                              }
-                         });
-                         rowsHTML+=`</td>`
+                $.each(rowelement, function(key, value) {
+                    if (key in GridParams['title']) {
+                        rowsHTML += `<td>` + value + `</td>`
                     }
+                });
+                /* Option Columns  */
+                if (GridParams['option']['isoption']) {
+                    rowsHTML += `<td>`
+                    GridParams['option']['optionfields'].forEach(function(element, index) {
+                        var optionkey = GridParams['option']['optionKey'][index];
+                        var optionurl = GridParams['option']['optionLink'][index];
+                        switch (element) {
+                            case "href":
+                                rowsHTML += `<a href="` + optionurl + rowelement[optionkey] + `"><button class="btn btn-success btn-sm ` + GridParams['option']['optionAdditionalClass'][index] + `" data-key="` + rowelement[optionkey] + `" data-toggle="tooltip" data-placement="top" title="` + GridParams['option']['optionToolTip'][index] + `">${GridParams['option']['isFaFa'] ? '<i class="' + GridParams['option']['optionFaFa'][index] + '"></i>' : GridParams['option']['optionToolTip'][index]}</button></a>`
+                                break;
+                            case "newtab":
+                                // rowsHTML+=`<a href="`+optionurl+rowelement[optionkey]+`" target="_blank"><button class="btn btn-success">`+GridParams['option']['optionToolTip'][index]+`</button></a>` 
+                                rowsHTML += `<a href="` + optionurl + rowelement[optionkey] + `"  target="_blank" ><button class="btn btn-success btn-sm ` + GridParams['option']['optionAdditionalClass'][index] + `" data-key="` + rowelement[optionkey] + `" data-toggle="tooltip" data-placement="top" title="` + GridParams['option']['optionToolTip'][index] + `">${GridParams['option']['isFaFa'] ? '<i class="' + GridParams['option']['optionFaFa'][index] + '"></i>' : GridParams['option']['optionToolTip'][index]}</button></a>`
+                                break;
+                            case "#":
+                                rowsHTML += `<button class="btn btn-success btn-sm ` + GridParams['option']['optionAdditionalClass'][index] + `" data-key="` + rowelement[optionkey] + `" data-toggle="tooltip" data-placement="top" title="` + GridParams['option']['optionToolTip'][index] + `">${GridParams['option']['isFaFa'] ? '<i class="' + GridParams['option']['optionFaFa'][index] + '"></i>' : GridParams['option']['optionToolTip'][index]}</button>`
+                                break;
+                                // case "href":
+                                //      rowsHTML+=`<a href="useredit.php?userid=24"><button class="btn btn-success">EDIT</button></a>` 
+                                //      break;
+                            default:
+                                break;
+                        }
+                    });
+                    rowsHTML += `</td>`
+                }
 
-                    rowsHTML+=`</tr>`;
-               });
-          }
-     }
+                rowsHTML += `</tr>`;
+            });
+        }
+    }
 
-    GridHtml=`<div id="">
+    GridHtml = `<div id="">
                     <div class="row">
                          <div class="col-md-3">
-                              Total Count: `+GridParams['pagination']['totalrows']+`
+                              Total Count: ` + GridParams['pagination']['totalrows'] + `
                          </div>
                          <div class="col-md-6">
-                              `+paginationHTML+`
+                              ` + paginationHTML + `
                          </div>
                          <div class="col-md-3">
-                              `+paginationSelectHTML+`
+                              ` + paginationSelectHTML + `
                          </div>
                          <div class="col-md-12">
                               
                          </div>
                     </div> 
-                    <table class="table table-bordered table-responsive-md table-responsive-lg ">  
+                    <table class="table table-bordered table-responsive-md table-responsive-lg mt-2">  
+                                   <thead  class="thead-dark">
+                                    ` + titleHTML + `
+                                   </thead>
                                    <tbody>
-                                        `+titleHTML+`  
-                                        `+rowsHTML+` 
+                                         
+                                        ` + rowsHTML + ` 
                                    </tbody>
                               </table>
                </div>`;
-               $('#gridselect').select2();
+    $('#gridselect').select2();
     return GridHtml;
 }

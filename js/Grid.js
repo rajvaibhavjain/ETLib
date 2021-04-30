@@ -104,7 +104,7 @@ function Grid(GridParams) {
                 })
                 /* Option Columns  */
             if (GridParams['option']['isoption']) {
-                titleHTML += `<th>` + GridParams['option']['optiontitle'] + `</th>`
+                titleHTML += `<th class="text-center">` + GridParams['option']['optiontitle'] + `</th>`
             }
             titleHTML += `</tr>`;
         }
@@ -122,23 +122,23 @@ function Grid(GridParams) {
                 });
                 /* Option Columns  */
                 if (GridParams['option']['isoption']) {
-                    rowsHTML += `<td>`
+                    rowsHTML += `<td class="text-center">`
                     GridParams['option']['optionfields'].forEach(function(element, index) {
                         var optionkey = GridParams['option']['optionKey'][index];
                         var optionurl = GridParams['option']['optionLink'][index];
                         switch (element) {
                             case "href":
-                                rowsHTML += `<a href="` + optionurl + rowelement[optionkey] + `"><button class="btn btn-success btn-sm ` + GridParams['option']['optionAdditionalClass'][index] + `" data-key="` + rowelement[optionkey] + `" data-toggle="tooltip" data-placement="top" title="` + GridParams['option']['optionToolTip'][index] + `">${GridParams['option']['isFaFa'] ? '<i class="' + GridParams['option']['optionFaFa'][index] + '"></i>' : GridParams['option']['optionToolTip'][index]}</button></a>`
+                                rowsHTML += `<a href="` + optionurl + rowelement[optionkey] + `"><button class="btn btn-sm ` + GridParams['option']['optionAdditionalClass'][index] + `" data-key="` + rowelement[optionkey] + `" data-toggle="tooltip" data-placement="top" title="` + GridParams['option']['optionToolTip'][index] + `">${GridParams['option']['isFaFa'] ? '<i class="' + GridParams['option']['optionFaFa'][index] + '"></i>' : GridParams['option']['optionToolTip'][index]}</button></a>`
                                 break;
                             case "newtab":
-                                // rowsHTML+=`<a href="`+optionurl+rowelement[optionkey]+`" target="_blank"><button class="btn btn-success">`+GridParams['option']['optionToolTip'][index]+`</button></a>` 
-                                rowsHTML += `<a href="` + optionurl + rowelement[optionkey] + `"  target="_blank" ><button class="btn btn-success btn-sm ` + GridParams['option']['optionAdditionalClass'][index] + `" data-key="` + rowelement[optionkey] + `" data-toggle="tooltip" data-placement="top" title="` + GridParams['option']['optionToolTip'][index] + `">${GridParams['option']['isFaFa'] ? '<i class="' + GridParams['option']['optionFaFa'][index] + '"></i>' : GridParams['option']['optionToolTip'][index]}</button></a>`
+                                // rowsHTML+=`<a href="`+optionurl+rowelement[optionkey]+`" target="_blank"><button class="btn">`+GridParams['option']['optionToolTip'][index]+`</button></a>` 
+                                rowsHTML += `<a href="` + optionurl + rowelement[optionkey] + `"  target="_blank" ><button class="btn btn-sm ` + GridParams['option']['optionAdditionalClass'][index] + `" data-key="` + rowelement[optionkey] + `" data-toggle="tooltip" data-placement="top" title="` + GridParams['option']['optionToolTip'][index] + `">${GridParams['option']['isFaFa'] ? '<i class="' + GridParams['option']['optionFaFa'][index] + '"></i>' : GridParams['option']['optionToolTip'][index]}</button></a>`
                                 break;
                             case "#":
-                                rowsHTML += `<button class="btn btn-success btn-sm ` + GridParams['option']['optionAdditionalClass'][index] + `" data-key="` + rowelement[optionkey] + `" data-toggle="tooltip" data-placement="top" title="` + GridParams['option']['optionToolTip'][index] + `">${GridParams['option']['isFaFa'] ? '<i class="' + GridParams['option']['optionFaFa'][index] + '"></i>' : GridParams['option']['optionToolTip'][index]}</button>`
+                                rowsHTML += `<button class="btn btn-sm ` + GridParams['option']['optionAdditionalClass'][index] + `" data-key="` + rowelement[optionkey] + `" data-toggle="tooltip" data-placement="top" title="` + GridParams['option']['optionToolTip'][index] + `">${GridParams['option']['isFaFa'] ? '<i class="' + GridParams['option']['optionFaFa'][index] + '"></i>' : GridParams['option']['optionToolTip'][index]}</button>`
                                 break;
                                 // case "href":
-                                //      rowsHTML+=`<a href="useredit.php?userid=24"><button class="btn btn-success">EDIT</button></a>` 
+                                //      rowsHTML+=`<a href="useredit.php?userid=24"><button class="btn">EDIT</button></a>` 
                                 //      break;
                             default:
                                 break;
@@ -167,15 +167,16 @@ function Grid(GridParams) {
                               
                          </div>
                     </div> 
-                    <table class="table table-bordered table-responsive-md table-responsive-lg mt-2">  
-                                   <thead  class="thead-dark">
-                                    ` + titleHTML + `
-                                   </thead>
-                                   <tbody>
-                                         
-                                        ` + rowsHTML + ` 
-                                   </tbody>
-                              </table>
+                    <div class="mt-2 table-responsive-md table-responsive-lg table-responsive-sm text-nowrap" style="width:100%; ">
+                        <table class="table table-bordered">  
+                            <thead  class="thead-dark">
+                                ` + titleHTML + `
+                            </thead>
+                            <tbody>
+                                ` + rowsHTML + ` 
+                            </tbody>
+                        </table>
+                    </div>
                </div>`;
     $('#gridselect').select2();
     return GridHtml;

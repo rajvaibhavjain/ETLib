@@ -52,11 +52,11 @@ function Grid(GridParams) {
 
                 /* First Button */
                 if (currentPage != 1) {
-                    paginationHTML += `<button class='btn m-1 pagenumber' data-pagenumber="1">First</button>`;
+                    paginationHTML += `<button class='btn btn-sm m-1 pagenumber' data-pagenumber="1">First</button>`;
                 }
                 /*Prev Button */
                 if (currentPage >= 2) {
-                    paginationHTML += `<button class='btn m-1 pagenumber' data-pagenumber="` + (currentPage - 1) + `" >Prev</button>`;
+                    paginationHTML += `<button class='btn btn-sm m-1 pagenumber' data-pagenumber="` + (currentPage - 1) + `" >Prev</button>`;
                 }
 
                 /*Middle Page Buttons */
@@ -70,15 +70,15 @@ function Grid(GridParams) {
                 var count = 0;
                 for (i = paginationPage; i <= totalPages; i++) {
                     if (count < 5) {
-                        paginationHTML += `<button class='btn m-1 pagenumber ${currentPage == i ? 'btn-success' : ''}' data-pagenumber="` + i + `" onclick="PaginationClick(` + i + `)">` + i + `</button>`;
+                        paginationHTML += `<button class='btn btn-sm m-1 pagenumber ${currentPage == i ? 'btn-success' : ''}' data-pagenumber="` + i + `" onclick="PaginationClick(` + i + `)">` + i + `</button>`;
                     }
                     count++;
                 }
 
                 /*Next/Last  Button */
                 if (currentPage != totalPages) {
-                    paginationHTML += `<button class='btn m-1 pagenumber' data-pagenumber="` + (currentPage + 1) + `" >Next</button>
-                                             <button class='btn m-1 pagenumber'data-pagenumber="` + totalPages + `" >Last</button>`;
+                    paginationHTML += `<button class='btn btn-sm m-1 pagenumber' data-pagenumber="` + (currentPage + 1) + `" >Next</button>
+                                             <button class='btn btn-sm m-1 pagenumber'data-pagenumber="` + totalPages + `" >Last</button>`;
                 }
             }
         }
@@ -157,7 +157,7 @@ function Grid(GridParams) {
                          <div class="col-md-3">
                               Total Count: ` + GridParams['pagination']['totalrows'] + `
                          </div>
-                         <div class="col-md-6">
+                         <div class="col-md-6 text-center">
                               ` + paginationHTML + `
                          </div>
                          <div class="col-md-3">
@@ -167,7 +167,7 @@ function Grid(GridParams) {
                               
                          </div>
                     </div> 
-                    <div class="mt-2 table-responsive-md table-responsive-lg table-responsive-sm text-nowrap" style="width:100%; ">
+                    <div class="mt-2 table-responsive table-responsive-md table-responsive-lg table-responsive-sm text-nowrap" style="width:100%; ">
                         <table class="table table-bordered">  
                             <thead  class="thead-dark">
                                 ` + titleHTML + `

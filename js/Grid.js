@@ -1,36 +1,53 @@
 var json = '{"response":false,"message":"Title is required."}';
-console.log(json);
 var obj = JSON.parse(json);
-console.log(obj.response);
-console.log(obj["response"]);
-console.log(JSON.stringify(json));
+// var parms = {
+//     "response": "true",
+//     "title": {
+//         'marginid': '#ID',
+//         'operator': 'Operator',
+//         'code': 'Code',
+//         'details': 'Details',
+//         'usermargin': 'User Margin',
+//         'supervisormargin': 'Super Visor Margin',
+//         'superusermargin': 'Super User Margin',
+//     },
+//     "rows": [{
+//             'userid': '#ID',
+//             'name': 'Name',
+//             'mobile': 'Mobile',
+//             'email': 'Email',
+//             'type': 'Type'
+//         },
+//         {
+//             'userid': '#ID',
+//             'name': 'Name',
+//             'mobile': 'Mobile',
+//             'email': 'Email',
+//             'type': 'Type'
+//         }
+//     ],
+//     "pagination": { //For Pagination
+//         "ispagination": true,
+//         "totalrows": 99,
+//         "currentpage": 1,
+//         "showdatalimit": 12,
+//         "isselect": true,
+//         "selectoption": '', //[10, 20, 50, 100],
+//         "showtotalcount": false
+//     },
+//     "option": {
+//         "isoption": true,
+//         "optiontitle": "Options",
+//         "optionfields": ['#'], //href, newtab, #, modal,
+//         "optionToolTip": ['Edit'],
+//         "optionKey": ['marginid'],
+//         "optionLink": [''],
+//         "isFaFa": true, //true, false
+//         "optionFaFa": ['fas fa-edit'], //fas fa-trash
+//         "optionAdditionalClass": ['btn-info marginedit'], //AdditionalClasss Two or more
+//     }
+// }
 
-
-// Grid Parms
-/*var GridParams={    "response":"true",
-                    "title":['User id','User Name','Email','Mobile','Type','Time'],
-                    "rows":[
-                              ['USR24','student student','student@student.com','7878787878','user','2020-08-27 01:05:34'],
-                              ['User id','User Name','Email','Mobile','Type','Time'],
-                         ],  
-                    "totalrows":99,         //For Pagination      
-                    "currentpage":10,         //For Pagination      
-                    "showdatalimit":10,           //For Pagination      
-                    "option":{
-                                   "isoption":true,
-                                   "optiontitle":"Options",
-                                   "optionfields":[ 'href','newtab'],                //href, newtab
-                                   "optionToolTip":[ 'Edit','Delete'],
-                                   "optionToolTipType":"fafa",                           //null, fafa
-                              }
-                              
-                                  
-                           
-                    }*/
-
-
-
-//'title'=['User id','User Name','Email','Mobile','Type','Time','Options'],'rows'=[['USR24','student student','student@student.com','7878787878','user','2020-08-27 01:05:34','<a href="useredit.php?userid=24"><button class="btn btn-success">EDIT</button></a>'],['User id','User Name','Email','Mobile','Type','Time','Options'],[],[]]
 /* Params */
 var GridOption = []; /* Option For Show dit Update delete Button */
 // var GridParams=[];
@@ -154,10 +171,10 @@ function Grid(GridParams) {
 
     GridHtml = `<div id="">
                     <div class="row">
-                         <div class="col-md-3">
+                         <div class="col-md-3 ${ GridParams['pagination']['showtotalcount']==false? 'd-none':'' }">
                               Total Count: ` + GridParams['pagination']['totalrows'] + `
                          </div>
-                         <div class="col-md-6 text-center">
+                         <div class="${ GridParams['pagination']['showtotalcount']==false?'col-md-9 ':'col-md-6 text-center' } ">
                               ` + paginationHTML + `
                          </div>
                          <div class="col-md-3">

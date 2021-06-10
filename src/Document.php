@@ -16,7 +16,7 @@
             $extension = explode("/", $file['image']["type"]);
             $name = $file['name'].".".$extension[1]; 
             $targetPath = $file['targetpath'].$name; 
-            $dbpath = "documents/".$name;
+            $dbpath = $file['dbpath'].$name;
             if(Document::Upload($sourcePath,$targetPath)){
                 return [
                             'doumentname'=>$name,

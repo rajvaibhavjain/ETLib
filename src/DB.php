@@ -36,7 +36,7 @@
         public static function ExecuteScalarRow($query){
             $mysqlquery=mysqli_query($GLOBALS['AppConfig']['mysqli_conn'], $query);
             if(mysqli_num_rows($mysqlquery)>0){
-                $data=mysqli_fetch_array($mysqlquery); 
+                $data=mysqli_fetch_assoc($mysqlquery); 
                 return $data;
             }else{
                 return false;
@@ -55,6 +55,7 @@
                 $conditionlist[]="".$k."='".$condition[$k]."'";
             }
             $query = "Update `$tablename` set ".implode(",", $columnlist)." where ".implode(' and ', $conditionlist)."";
+            // print_r($query);
             $update=mysqli_query($GLOBALS['AppConfig']['mysqli_conn'],$query);
             return $update;
         }

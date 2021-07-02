@@ -4,14 +4,14 @@ if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST']!="" && $_SERVER['HTTP_H
 	$servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "aeonczie_clslasacademy";
+    $dbname = "databasename";
     // $GLOBALS['AppConfig']['folderpath'] = '/atthah/extra/CLSIAS';
     $GLOBALS['AppConfig']['folderpath'] = '/vishal/clsias';
 }else{
 	$servername = "localhost";
-    $username = "aeonczie_rajvaibhav";
+    $username = "username";
     $password = "rajvaibhav";
-    $dbname = "aeonczie_clslasacademy";
+    $dbname = "databasename";
     $GLOBALS['AppConfig']['folderpath'] = '';
 }
 

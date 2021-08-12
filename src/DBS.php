@@ -54,7 +54,7 @@
 
         public static function ExecuteScalarRow($query,$value){
             $stmt = $GLOBALS['AppConfig']['mysqli_conn']->prepare($query); 
-            
+           
             if(isset($value) && is_array($value) && count($value)>0){
                 $datatype='';
                 $val = [];
@@ -69,6 +69,7 @@
             
             $stmt->execute(); 
             $result=$stmt->get_result();
+           
             if(!empty($result)){
                 return mysqli_fetch_assoc($result);
             }else{
@@ -91,7 +92,7 @@
             foreach (array_keys($condition) as $k) {
                 $conditionlist[]="".$k."=?";
                 $datatype.= is_numeric($condition[$k]) ? 'i' : 's';
-                $val[] = &$values[$k];
+                $val[] = &$condition[$k];
             }
             $datatypeArray[] = &$datatype;
             $updateValue = array_merge($datatypeArray, $val);
@@ -154,6 +155,30 @@
             // echo $query;
             mysqli_query($GLOBALS['AppConfig']['mysqli_conn'],$query);
             return $GLOBALS['AppConfig']['mysqli_conn']->insert_id;
+        }
+
+        public static function Delete($tablename,$condition){
+            if(isset($condition) && is_array($condition) && count($condition)>0){
+                $datatype='';
+                $val = [];
+                $conditionlist = [];
+                foreach (array_keys($condition) as $k) {
+                    $conditionlist[]="".$k."=?";
+                    $datatype.= is_numeric($condition[$k]) ? 'i' : 's';
+                    $val[] = &$condition[$k];
+                }
+                $datatypeArray[] = &$datatype;
+                $deleteValue = array_merge($datatypeArray, $val);
+                $query = "DELETE FROM  `$tablename` where ".implode(' and ', $conditionlist)."";
+                $stmt = $GLOBALS['AppConfig']['mysqli_conn']->prepare($query); 
+                call_user_func_array([&$stmt,'bind_param'], $deleteValue);       //It look like $stmt->bind_param('sss',$email, $name, $mobile );
+                $delete=$stmt->execute(); 
+            }else{
+                $query = "DELETE FROM  `$tablename`";
+                $stmt = $GLOBALS['AppConfig']['mysqli_conn']->prepare($query); 
+                $delete=$stmt->execute(); 
+            }
+            return $delete;
         }
 
         public static function KeyValuePair($query){

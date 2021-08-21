@@ -38,7 +38,7 @@
                 $data=mysqli_fetch_array($count); 
                 return isset($data[0])?$data[0]:false;
             }else{
-                return false;
+                return 0;
             }
         }
 

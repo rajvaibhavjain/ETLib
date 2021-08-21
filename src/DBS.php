@@ -48,7 +48,7 @@
             if(!$stmt->error){
                 return mysqli_num_rows($stmt->get_result());
             }else{
-                return false;
+                return 0;
             }
         }
 

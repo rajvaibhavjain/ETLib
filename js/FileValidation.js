@@ -10,14 +10,30 @@ $(document).on('change','.ETFileSize',function(){
 })
 
 $(document).on('change','.ETFileFormate',function(){
-    var fileName = this.value;
-    var fileformate=$(this).data('fileformate');
-    var filefomateArray = fileformate.split(",");
-    var idxDot = fileName.lastIndexOf(".") + 1;
-    var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-    if(filefomateArray.indexOf(extFile) != -1){
+    if(this.files.length>1){
+        for(var i=0; i<this.files.length ; i++){
+            var fileName = this.files[i].name;
+            var fileformate=$(this).data('fileformate');
+            var filefomateArray = fileformate.split(",");
+            var idxDot = fileName.lastIndexOf(".") + 1;
+            var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+            if(filefomateArray.indexOf(extFile) != -1){
+            }else{
+                sweetalert("Error","Only "+fileformate+" files are allowed!","error","OK","")
+                $(this).val("");
+            }
+        }
     }else{
-        sweetalert("Error","Only "+fileformate+" files are allowed!","error","OK","")
-        $(this).val("");
+        var fileName = this.value;
+        var fileformate=$(this).data('fileformate');
+        var filefomateArray = fileformate.split(",");
+        var idxDot = fileName.lastIndexOf(".") + 1;
+        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+        if(filefomateArray.indexOf(extFile) != -1){
+        }else{
+            sweetalert("Error","Only "+fileformate+" files are allowed!","error","OK","")
+            $(this).val("");
+        }
     }
+    
 })

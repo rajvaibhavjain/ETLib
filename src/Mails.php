@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\PHPMailer;
     
 class Mails
 {
-    public static function DoEmail($userName,$userEmail,$mailSubject,$mailBody)
+    public static function DoEmail($userName,$userEmail,$mailSubject,$mailBody, $attachment=false)
 	{    
         $fromName=$GLOBALS['AppConfig']['SenderName'];
         $fromEmail=$GLOBALS['AppConfig']['SenderEmail'];
@@ -36,6 +36,9 @@ class Mails
 		$objPhpMailer->SetFrom($fromEmail, $fromName);
 	    $objPhpMailer->AddReplyTo($fromEmail, $fromName);
 		$objPhpMailer->AddAddress($userEmail, $userName);
+		if($attachment){
+			$objPhpMailer->addAttachment($attachment);
+		}
 		$objPhpMailer->Subject = $mailSubject;
 	    $objPhpMailer->MsgHTML($mailBody);		
 	

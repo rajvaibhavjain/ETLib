@@ -44,13 +44,13 @@ class Mails
 	
 		if(!$objPhpMailer->Send()) 
 		{
-            //echo "Mailer Error: " . $objPhpMailer->ErrorInfo;
+            if(isset($GLOBALS['AppConfig']['DebugMode']) && $GLOBALS['AppConfig']['DebugMode']) echo "Mailer Error: " . $objPhpMailer->ErrorInfo;
 			$objPhpMailer->ClearAllRecipients();
 			return false;
 		} 
 		else 
 		{
-			//echo "Message sent!";
+			if(isset($GLOBALS['AppConfig']['DebugMode']) && $GLOBALS['AppConfig']['DebugMode']) echo "Message sent!";
 			$objPhpMailer->ClearAllRecipients();
 			return true;
 		}

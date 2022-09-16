@@ -7,7 +7,7 @@
             include('db.php');
         }
 
-        public static function PushNotificationSingle($token="",$title="No Title",$body="No Body",$imageurl=""){
+        public static function PushNotificationSingle($token="",$title="No Title",$body="No Body",$imageurl="", $url=""){
                 if($token==""){
                     $token=$GLOBALS['AppConfig']['FireBaseToken'];
                 }
@@ -21,7 +21,7 @@
 				'Content-Type:application/json'
 				);
 				
-				$fields=array('to'=>$token,'notification'=>array('title'=>$title,'body'=>$body,"image"=>$imageurl));
+				$fields=array('to'=>$token,'notification'=>array('title'=>$title,'body'=>$body,"image"=>$imageurl,"click_action"=>$url));
 				$payload=json_encode($fields);
 				$curl_session=curl_init();
 				curl_setopt($curl_session,CURLOPT_URL,$path_to_fcm);
@@ -37,7 +37,7 @@
                 return true;
         }
 
-        public static function PushNotificationMultiDevice($tokenArray=array(),$title="No Title",$body="No Body",$imageurl=""){
+        public static function PushNotificationMultiDevice($tokenArray=array(),$title="No Title",$body="No Body",$imageurl="", $url=""){
             if(empty($tokenArray)){
                 $tokenArray=array(  $GLOBALS['AppConfig']['FireBaseToken'],
                                     $GLOBALS['AppConfig']['FireBaseToken']);
@@ -53,7 +53,7 @@
             'Content-Type:application/json'
             );
             
-            $fields=array('registration_ids'=>$tokenArray,'notification'=>array('title'=>$title,'body'=>$body,"image"=>$imageurl,"sound"=> "default"));
+            $fields=array('registration_ids'=>$tokenArray,'notification'=>array('title'=>$title,'body'=>$body,"image"=>$imageurl,"click_action"=>$url,"sound"=> "default"));
             $payload=json_encode($fields);
             $curl_session=curl_init();
             curl_setopt($curl_session,CURLOPT_URL,$path_to_fcm);

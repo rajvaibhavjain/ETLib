@@ -29,6 +29,15 @@
             }            
         }
 
+        public static function ExecuteOnly($query){
+            $execute_query=mysqli_multi_query($GLOBALS['AppConfig']['mysqli_conn'], $query);
+            if($execute_query){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
         public static function ExecuteScalar($query,$value=[]){
             $stmt = $GLOBALS['AppConfig']['mysqli_conn']->prepare($query); 
             
@@ -79,6 +88,9 @@
 
         public static function Update($tablename,$values,$condition){
 
+            //Remove HTML TAG
+            $values=Validate::removeHtmlTag($values);
+
             $columnlist = [];
             $datatype='';
             $val = [];
@@ -108,6 +120,10 @@
         }
 
         public static function Insert($tablename,$values){
+            
+            //Remove HTML TAG
+            $values=Validate::removeHtmlTag($values);
+
             $key = [];
             foreach (array_keys($values) as $k) {
                 $key[]=$k;

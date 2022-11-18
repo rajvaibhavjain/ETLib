@@ -24,7 +24,7 @@
         }
 
         public static function ExecuteOnly($query){
-            $execute_query=mysqli_query($GLOBALS['AppConfig']['mysqli_conn'], $query);
+            $execute_query=mysqli_multi_query($GLOBALS['AppConfig']['mysqli_conn'], $query);
             if($execute_query){
                 return true;
             }else{

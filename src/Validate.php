@@ -25,6 +25,55 @@
             }
             return $data;
         }
+
+        public static function findSpecialCharactor($string){
+            $isok=true;
+            if (preg_match('/[\'^£$%&*()}{#~?><>,|=_+¬-]/', $string))
+            {
+                $isok=false;
+            }
+            return $isok;
+        }
+
+        public static function findSpecialCharactorForAll($array)
+        {
+            $isok=true;
+            if(!empty($array)){
+                foreach ($array as $key => $value) {
+                    if (preg_match('/[\'^£$%&*()}{#~?><>,|=_+¬-]/', $value))
+                    {
+                        $isok=false;
+                    }
+                } 
+            }
+            return $isok;
+        }
+
+
+        public static function removeScriptTag($array)
+        {
+            $data=array();
+            if(!empty($array)){
+                foreach ($array as $key => $value) {
+                    $pattern = '/(script.*?(?:\/|&#47;|&#x0002F;)script)/ius';
+                    $value=preg_replace($pattern, "", $value) ? : $value;
+                    $data[$key]=$value;
+                } 
+            }
+            return $data;
+        }
+
+        public static function removeHtmlTag($array)
+        {
+            $data=array();
+            if(!empty($array)){
+                foreach ($array as $key => $value) {
+                    $value=strip_tags($value);
+                    $data[$key]=$value;
+                } 
+            }
+            return $data;
+        }
         
         public static function Required($array){
             $data=array();

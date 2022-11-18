@@ -40,6 +40,7 @@ class Mails
 			$objPhpMailer->addAttachment($attachment);
 		}
 		$objPhpMailer->Subject = $mailSubject;
+		$objPhpMailer->CharSet = 'UTF-8';
 	    $objPhpMailer->MsgHTML($mailBody);		
 	
 		if(!$objPhpMailer->Send()) 

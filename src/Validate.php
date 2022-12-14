@@ -44,7 +44,6 @@
             if(!empty($array)){
                 foreach ($array as $key => $value) {
                     $index=array_search($key, $except);
-                    print_r($index);
                     if($index<0){
                         if (preg_match('/[\'^£$%&*()}{#~?><>,|=_+¬-]/', $value))
                         {

@@ -34,15 +34,22 @@
             }
             return $isok;
         }
-
-        public static function findSpecialCharactorForAll($array)
+        
+        /* 
+            $findSpecialCharactor=Validate::findSpecialCharactorForAll($_POST, array('password'));
+        */
+        public static function findSpecialCharactorForAll($array,$except)
         {
             $isok=true;
             if(!empty($array)){
                 foreach ($array as $key => $value) {
-                    if (preg_match('/[\'^£$%&*()}{#~?><>,|=_+¬-]/', $value))
-                    {
-                        $isok=false;
+                    $index=array_search($key, $except);
+                    print_r($index);
+                    if($index<0){
+                        if (preg_match('/[\'^£$%&*()}{#~?><>,|=_+¬-]/', $value))
+                        {
+                            $isok=false;
+                        }
                     }
                 } 
             }

@@ -8,7 +8,19 @@ use PHPMailer\PHPMailer\PHPMailer;
     
 class Mails
 {
-    public static function DoEmail($userName,$userEmail,$mailSubject,$mailBody, $attachment=false)
+    
+	/*
+		$body='<table cellpadding="0" cellspacing="0" width="440">
+                    <tr>
+                        <td style="font-family: Cambria, Hoefler Text, Liberation Serif, Times, Times New Roman, serif; font-size: 14px; color:#000; line-height: 22px;"  >
+                            Dear user,<br><br>
+                            Your Unique Code is '.$otp.'.<br><br><br>
+                        </td>
+                    </tr>
+                </table>';
+		Mails::DoEmail("Test", "test@test.com" , "Unique Code",$body);
+	*/
+	public static function DoEmail($userName,$userEmail,$mailSubject,$mailBody, $attachment=false)
 	{    
         $fromName=$GLOBALS['AppConfig']['SenderName'];
         $fromEmail=$GLOBALS['AppConfig']['SenderEmail'];
@@ -57,7 +69,20 @@ class Mails
 		}
 	}
 
-	public static function DoPhpEmail($to="rajvaibhavjain@gmail.com",$from="info@etechmy.com",$fromName="ETECHMY",$subject="Tech Rockes.",$mailBody="<h3>Tech Rockes</h3>"){
+
+	/*
+		$body='<table cellpadding="0" cellspacing="0" width="440">
+                    <tr>
+                        <td style="font-family: Cambria, Hoefler Text, Liberation Serif, Times, Times New Roman, serif; font-size: 14px; color:#000; line-height: 22px;"  >
+                            Dear user,<br><br>
+                            Your Unique Code is '.$otp.'.<br><br><br>
+                        </td>
+                    </tr>
+                </table>';
+		Mails::DoPhpEmail("to@test.com" ,"from@test.com" "Test From Name", "Test Subject", $body);
+	*/
+
+	public static function DoPhpEmail($to="to@test.com",$from="from@test.com",$fromName="Test From Name",$subject="Test Subject.",$mailBody="<h3>Tech Rockes</h3>"){
 		$headers = "From: $fromName"." <".$from.">";
 		$semi_rand = md5(time()); 
 		$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 

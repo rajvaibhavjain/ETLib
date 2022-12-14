@@ -3,6 +3,10 @@
     
     class DBS{
 
+        /*
+            DBS::Execute("SELECT * FROM user WHERE email = ?",array($email));
+            Return All Data
+        */
         public static function Execute($query, $value){
             $stmt = $GLOBALS['AppConfig']['mysqli_conn']->prepare($query); 
             if(isset($value) && is_array($value) && count($value)>0){
@@ -37,7 +41,10 @@
                 return false;
             }
         }
-
+        
+        /*
+            $isUserExist=DBS::ExecuteScalar("SELECT * FROM user WHERE id = ?", array($uid));
+        */
         public static function ExecuteScalar($query,$value=[]){
             $stmt = $GLOBALS['AppConfig']['mysqli_conn']->prepare($query); 
             
@@ -61,6 +68,10 @@
             }
         }
 
+        /*
+            DBS::ExecuteScalarRow("SELECT * FROM user WHERE email = ?",array($email));
+            Return Single Data
+        */
         public static function ExecuteScalarRow($query,$value){
             $stmt = $GLOBALS['AppConfig']['mysqli_conn']->prepare($query); 
            
@@ -86,6 +97,9 @@
             }
         }
 
+        /*
+            DBS::Update('user',array('first_login_time'=>$this->current_time,'last_login_time'=>$this->current_time),array('id'=>$user['id']));
+        */
         public static function Update($tablename,$values,$condition){
 
             //Remove HTML TAG
@@ -119,6 +133,9 @@
             return $update;
         }
 
+        /*
+            DBS::Insert('user',array('name'=>'Test','email'=>'test@test.com'));
+        */
         public static function Insert($tablename,$values){
             
             //Remove HTML TAG

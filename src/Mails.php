@@ -19,6 +19,7 @@ class Mails
                     </tr>
                 </table>';
 		Mails::DoEmail("Test", "test@test.com" , "Unique Code",$body);
+		Mails::DoEmail('Test','test@gmail.com','uploads/image.png','Dummy.png');
 	*/
 	public static function DoEmail($userName,$userEmail,$mailSubject,$mailBody, $attachment=false, $attachmentname=false)
 	{    

@@ -20,7 +20,7 @@ class Mails
                 </table>';
 		Mails::DoEmail("Test", "test@test.com" , "Unique Code",$body);
 	*/
-	public static function DoEmail($userName,$userEmail,$mailSubject,$mailBody, $attachment=false)
+	public static function DoEmail($userName,$userEmail,$mailSubject,$mailBody, $attachment=false, $attachmentname=false)
 	{    
         $fromName=$GLOBALS['AppConfig']['SenderName'];
         $fromEmail=$GLOBALS['AppConfig']['SenderEmail'];
@@ -48,9 +48,12 @@ class Mails
 		$objPhpMailer->SetFrom($fromEmail, $fromName);
 	    $objPhpMailer->AddReplyTo($fromEmail, $fromName);
 		$objPhpMailer->AddAddress($userEmail, $userName);
-		if($attachment){
+		if($attachment && $attachmentname){
+			$objPhpMailer->addAttachment($attachment, $attachmentname);
+		}else if($attachment){
 			$objPhpMailer->addAttachment($attachment);
 		}
+		
 		$objPhpMailer->Subject = $mailSubject;
 		$objPhpMailer->CharSet = 'UTF-8';
 	    $objPhpMailer->MsgHTML($mailBody);		

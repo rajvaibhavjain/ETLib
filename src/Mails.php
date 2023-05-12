@@ -50,10 +50,25 @@ class Mails
 	    $objPhpMailer->AddReplyTo($fromEmail, $fromName);
 		$objPhpMailer->AddAddress($userEmail, $userName);
 		if($attachment && $attachmentname){
-			$objPhpMailer->addAttachment($attachment, $attachmentname);
+			if(is_array($attachment)){
+				foreach($attachment as $k=>$v){
+					$objPhpMailer->addAttachment($v,$attachmentname[$k]);
+				}
+			}else{
+				$objPhpMailer->addAttachment($attachment, $attachmentname);
+			}
 		}else if($attachment){
-			$objPhpMailer->addAttachment($attachment);
+			if(is_array($attachment)){
+				foreach($attachment as $v){
+					$objPhpMailer->addAttachment($v);
+				}
+			}else{
+				$objPhpMailer->addAttachment($attachment);
+			}
 		}
+
+
+		
 		
 		$objPhpMailer->Subject = $mailSubject;
 		$objPhpMailer->CharSet = 'UTF-8';
